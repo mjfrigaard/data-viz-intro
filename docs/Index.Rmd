@@ -23,7 +23,7 @@ knitr::opts_chunk$set(warning = FALSE,
                       tibble.width = 60,
                       fig.height = 4, 
                       fig.path = "img/")
-options(width = "60")
+options(max.print = "60")
 ```
 
 ```{r xaringan-themer, include=FALSE, warning=FALSE}
@@ -206,7 +206,7 @@ The `NHANES` package comes with data from the [2014 American National Health and
 ```{r NHANES, include=FALSE}
 library(NHANES)
 NHANES %>% 
-  select(ID, Gender, Age, Race1, Race3, 
+  select(ID, Gender, Age, Race1, HealthGen,
          Height, BMI, Weight, Pulse, BPSysAve) %>% 
   write_csv(x = ., file = "data/small-nhanes.csv")
 ```
@@ -233,28 +233,45 @@ SmallNhanes %>% glimpse()
 
 ---
 background-image: url(img/ggplot2.png)
-background-position: 95% 93%
+background-position: 95% 20%
 background-size: 8%
 
 # Some quick tips for cleaning data 
 
 ### Format factors 
 
-We have a 
+We have a `health_gen` variable with the following levels: 
 
-```{r}
+`Excellent`, `Vgood`, `Good`, `Fair`, or `Poor`. These are ordered. 
 
+--
+
+```{r factor-health_gen}
+SmallNhanes <- 
+  SmallNhanes %>% mutate(
+  health_gen = factor(x = health_gen, 
+                       levels = c("Poor", "Fair", 
+                                  "Good", "Vgood", 
+                                  "Excellent"), 
+                      ordered = TRUE))
 ```
 
+--
 
+
+```{r levels-health_gen}
+levels(SmallNhanes$health_gen)
+```
 
 ---
 background-image: url(img/ggplot2.png)
-background-position: 95% 75%
+background-position: 95% 93%
 background-size: 8%
 
 # Some quick tips for cleaning data 
 
-### Clean text 
+### Cleaning text 
+
+
 
 

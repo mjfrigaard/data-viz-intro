@@ -203,17 +203,18 @@ SmallNhanes %&gt;% glimpse()
 
 ```
 ## Rows: 10,000
-## Columns: 10
-## $ ID       &lt;dbl&gt; 51624, 51624, 51624, 51625, 51630, 51638…
-## $ Gender   &lt;chr&gt; "male", "male", "male", "male", "female"…
-## $ Age      &lt;dbl&gt; 34, 34, 34, 4, 49, 9, 8, 45, 45, 45, 66,…
-## $ Race1    &lt;chr&gt; "White", "White", "White", "Other", "Whi…
-## $ Race3    &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
-## $ Height   &lt;dbl&gt; 164.7, 164.7, 164.7, 105.4, 168.4, 133.1…
-## $ BMI      &lt;dbl&gt; 32.22, 32.22, 32.22, 15.30, 30.57, 16.82…
-## $ Weight   &lt;dbl&gt; 87.4, 87.4, 87.4, 17.0, 86.7, 29.8, 35.2…
-## $ Pulse    &lt;dbl&gt; 70, 70, 70, NA, 86, 82, 72, 62, 62, 62, …
-## $ BPSysAve &lt;dbl&gt; 113, 113, 113, NA, 112, 86, 107, 118, 11…
+## Columns: 11
+## $ ID        &lt;dbl&gt; 51624, 51624, 51624, 51625, 51630, 5163…
+## $ Gender    &lt;chr&gt; "male", "male", "male", "male", "female…
+## $ Age       &lt;dbl&gt; 34, 34, 34, 4, 49, 9, 8, 45, 45, 45, 66…
+## $ Race1     &lt;chr&gt; "White", "White", "White", "Other", "Wh…
+## $ Race3     &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+## $ HealthGen &lt;chr&gt; "Good", "Good", "Good", NA, "Good", NA,…
+## $ Height    &lt;dbl&gt; 164.7, 164.7, 164.7, 105.4, 168.4, 133.…
+## $ BMI       &lt;dbl&gt; 32.22, 32.22, 32.22, 15.30, 30.57, 16.8…
+## $ Weight    &lt;dbl&gt; 87.4, 87.4, 87.4, 17.0, 86.7, 29.8, 35.…
+## $ Pulse     &lt;dbl&gt; 70, 70, 70, NA, 86, 82, 72, 62, 62, 62,…
+## $ BPSysAve  &lt;dbl&gt; 113, 113, 113, NA, 112, 86, 107, 118, 1…
 ```
 
 ---
@@ -234,12 +235,13 @@ SmallNhanes %&gt;% glimpse()
 
 ```
 ## Rows: 10,000
-## Columns: 10
+## Columns: 11
 ## $ id         &lt;dbl&gt; 51624, 51624, 51624, 51625, 51630, 516…
 ## $ gender     &lt;chr&gt; "male", "male", "male", "male", "femal…
 ## $ age        &lt;dbl&gt; 34, 34, 34, 4, 49, 9, 8, 45, 45, 45, 6…
 ## $ race1      &lt;chr&gt; "White", "White", "White", "Other", "W…
 ## $ race3      &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+## $ health_gen &lt;chr&gt; "Good", "Good", "Good", NA, "Good", NA…
 ## $ height     &lt;dbl&gt; 164.7, 164.7, 164.7, 105.4, 168.4, 133…
 ## $ bmi        &lt;dbl&gt; 32.22, 32.22, 32.22, 15.30, 30.57, 16.…
 ## $ weight     &lt;dbl&gt; 87.4, 87.4, 87.4, 17.0, 86.7, 29.8, 35…
@@ -249,27 +251,53 @@ SmallNhanes %&gt;% glimpse()
 
 ---
 background-image: url(img/ggplot2.png)
-background-position: 95% 93%
+background-position: 95% 20%
 background-size: 8%
 
 # Some quick tips for cleaning data 
 
 ### Format factors 
 
-We have a 
+We have a `health_gen` variable with the following levels: 
+
+`Excellent`, `Vgood`, `Good`, `Fair`, or `Poor`. These are ordered. 
+
+--
+
+
+```r
+SmallNhanes &lt;- 
+  SmallNhanes %&gt;% mutate(
+  health_gen = factor(x = health_gen, 
+                       levels = c("Poor", "Fair", 
+                                  "Good", "Vgood", 
+                                  "Excellent"), 
+                      ordered = TRUE))
+```
+
+--
 
 
 
+```r
+levels(SmallNhanes$health_gen)
+```
 
+```
+## [1] "Poor"      "Fair"      "Good"      "Vgood"    
+## [5] "Excellent"
+```
 
 ---
 background-image: url(img/ggplot2.png)
-background-position: 95% 75%
+background-position: 95% 93%
 background-size: 8%
 
 # Some quick tips for cleaning data 
 
-### Clean text 
+### Cleaning text 
+
+
 
 
     </textarea>
