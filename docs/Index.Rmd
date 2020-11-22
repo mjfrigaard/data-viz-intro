@@ -1,0 +1,40 @@
+---
+title: "BioMarin: Introduction to Data Visualization"
+subtitle: "The Grammar of Graphics"
+author: "Martin Frigaard"
+output:
+  html_document:
+    theme: flatly
+    toc: TRUE
+    toc_float: TRUE
+    toc_depth: 4
+    number_sections: TRUE
+    code_folding: hide
+---
+
+```{r setup, include = FALSE, cache = FALSE}
+library(tidyverse)
+library(janitor)
+library(babynames)
+folders <- c("data/", "img/", "code")
+purrr::map(.x = folders, fs::dir_create)
+knitr::opts_chunk$set(error = TRUE, 
+                      comment = "#> ", 
+                      warnings = FALSE, 
+                      fig.path = "img/",
+                      errors = FALSE, 
+                      messages = FALSE, 
+                      tidy = FALSE, 
+                      cache = FALSE)
+```
+
+# The Grammar of Graphics
+
+Done well, data visualization is a form of communication. 
+
+```{r load-packages}
+library(tidyverse)
+library(babynames)
+```
+
+## 
