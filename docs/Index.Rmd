@@ -15,8 +15,15 @@ library(reprex)
 library(xaringan)
 library(pagedown)
 library(xaringanthemer)
-knitr::opts_chunk$set(warning = FALSE, message = FALSE, fig.align = "center", 
-                      dpi = 320, fig.height = 4, fig.path = "img/")
+knitr::opts_chunk$set(warning = FALSE, 
+                      message = FALSE, 
+                      fig.align = "center", 
+                      dpi = 320, 
+                      tibble.max_extra_cols = 6, 
+                      tibble.width = 60,
+                      fig.height = 4, 
+                      fig.path = "img/")
+options(width = "60")
 ```
 
 ```{r xaringan-themer, include=FALSE, warning=FALSE}
@@ -191,5 +198,63 @@ background-position: 96% 8%
 background-size: 8%
 
 # Layered Grammar of Graphics
+
+### Load some data 
+
+The `NHANES` package comes with data from the [2014 American National Health and Nutrition Examination surveys](http://www.cdc.gov/nchs/data/series/sr_02/sr02_162.pdf). We will load a sample from it below: 
+
+```{r NHANES, include=FALSE}
+library(NHANES)
+NHANES %>% 
+  select(ID, Gender, Age, Race1, Race3, 
+         Height, BMI, Weight, Pulse, BPSysAve) %>% 
+  write_csv(x = ., file = "data/small-nhanes.csv")
+```
+
+```{r SmallNhanes}
+SmallNhanes <- read_csv("https://bit.ly/nhanes-small")
+SmallNhanes %>% glimpse()
+```
+
+---
+background-image: url(img/ggplot2.png)
+background-position: 95% 93%
+background-size: 8%
+
+# Some quick tips for cleaning data 
+
+### Standardize names 
+
+```{r clean_names}
+SmallNhanes <- SmallNhanes %>% 
+  janitor::clean_names()
+SmallNhanes %>% glimpse()
+```
+
+---
+background-image: url(img/ggplot2.png)
+background-position: 95% 93%
+background-size: 8%
+
+# Some quick tips for cleaning data 
+
+### Format factors 
+
+We have a 
+
+```{r}
+
+```
+
+
+
+---
+background-image: url(img/ggplot2.png)
+background-position: 95% 75%
+background-size: 8%
+
+# Some quick tips for cleaning data 
+
+### Clean text 
 
 
