@@ -172,7 +172,7 @@ background-size: 8%
 
 --
 
-### Variables are mapped to *aesthetics* 
+### Variables are *mapped* to *aesthetics* 
 
 --
 
@@ -187,9 +187,7 @@ background-image: url(img/ggplot2.png)
 background-position: 96% 8%
 background-size: 8%
 
-# Layered Grammar of Graphics
-
-### Load some data 
+# Load some data 
 
 The `NHANES` package comes with data from the [2014 American National Health and Nutrition Examination surveys](http://www.cdc.gov/nchs/data/series/sr_02/sr02_162.pdf). We will load a sample from it below: 
 
@@ -203,18 +201,17 @@ SmallNhanes %&gt;% glimpse()
 
 ```
 ## Rows: 10,000
-## Columns: 11
-## $ ID        &lt;dbl&gt; 51624, 51624, 51624, 51625, 51630, 5163…
-## $ Gender    &lt;chr&gt; "male", "male", "male", "male", "female…
-## $ Age       &lt;dbl&gt; 34, 34, 34, 4, 49, 9, 8, 45, 45, 45, 66…
-## $ Race1     &lt;chr&gt; "White", "White", "White", "Other", "Wh…
-## $ Race3     &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
-## $ HealthGen &lt;chr&gt; "Good", "Good", "Good", NA, "Good", NA,…
-## $ Height    &lt;dbl&gt; 164.7, 164.7, 164.7, 105.4, 168.4, 133.…
-## $ BMI       &lt;dbl&gt; 32.22, 32.22, 32.22, 15.30, 30.57, 16.8…
-## $ Weight    &lt;dbl&gt; 87.4, 87.4, 87.4, 17.0, 86.7, 29.8, 35.…
-## $ Pulse     &lt;dbl&gt; 70, 70, 70, NA, 86, 82, 72, 62, 62, 62,…
-## $ BPSysAve  &lt;dbl&gt; 113, 113, 113, NA, 112, 86, 107, 118, 1…
+## Columns: 10
+## $ ID        &lt;dbl&gt; 51624, 51624, 51624, 51625, 51630, 51638, 51646, 51647, 5164…
+## $ Gender    &lt;chr&gt; "male", "male", "male", "male", "female", "male", "male", "f…
+## $ Age       &lt;dbl&gt; 34, 34, 34, 4, 49, 9, 8, 45, 45, 45, 66, 58, 54, 10, 58, 50,…
+## $ Race1     &lt;chr&gt; "White", "White", "White", "Other", "White", "White", "White…
+## $ HealthGen &lt;chr&gt; "Good", "Good", "Good", NA, "Good", NA, NA, "Vgood", "Vgood"…
+## $ Height    &lt;dbl&gt; 164.7, 164.7, 164.7, 105.4, 168.4, 133.1, 130.6, 166.7, 166.…
+## $ BMI       &lt;dbl&gt; 32.22, 32.22, 32.22, 15.30, 30.57, 16.82, 20.64, 27.24, 27.2…
+## $ Weight    &lt;dbl&gt; 87.4, 87.4, 87.4, 17.0, 86.7, 29.8, 35.2, 75.7, 75.7, 75.7, …
+## $ Pulse     &lt;dbl&gt; 70, 70, 70, NA, 86, 82, 72, 62, 62, 62, 60, 62, 76, 80, 94, …
+## $ BPSysAve  &lt;dbl&gt; 113, 113, 113, NA, 112, 86, 107, 118, 118, 118, 111, 104, 13…
 ```
 
 ---
@@ -222,7 +219,7 @@ background-image: url(img/ggplot2.png)
 background-position: 95% 93%
 background-size: 8%
 
-# Some quick tips for cleaning data 
+# Quick tips for cleaning data 
 
 ### Standardize names 
 
@@ -235,18 +232,17 @@ SmallNhanes %&gt;% glimpse()
 
 ```
 ## Rows: 10,000
-## Columns: 11
-## $ id         &lt;dbl&gt; 51624, 51624, 51624, 51625, 51630, 516…
-## $ gender     &lt;chr&gt; "male", "male", "male", "male", "femal…
-## $ age        &lt;dbl&gt; 34, 34, 34, 4, 49, 9, 8, 45, 45, 45, 6…
-## $ race1      &lt;chr&gt; "White", "White", "White", "Other", "W…
-## $ race3      &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
-## $ health_gen &lt;chr&gt; "Good", "Good", "Good", NA, "Good", NA…
-## $ height     &lt;dbl&gt; 164.7, 164.7, 164.7, 105.4, 168.4, 133…
-## $ bmi        &lt;dbl&gt; 32.22, 32.22, 32.22, 15.30, 30.57, 16.…
-## $ weight     &lt;dbl&gt; 87.4, 87.4, 87.4, 17.0, 86.7, 29.8, 35…
-## $ pulse      &lt;dbl&gt; 70, 70, 70, NA, 86, 82, 72, 62, 62, 62…
-## $ bp_sys_ave &lt;dbl&gt; 113, 113, 113, NA, 112, 86, 107, 118, …
+## Columns: 10
+## $ id         &lt;dbl&gt; 51624, 51624, 51624, 51625, 51630, 51638, 51646, 51647, 516…
+## $ gender     &lt;chr&gt; "male", "male", "male", "male", "female", "male", "male", "…
+## $ age        &lt;dbl&gt; 34, 34, 34, 4, 49, 9, 8, 45, 45, 45, 66, 58, 54, 10, 58, 50…
+## $ race1      &lt;chr&gt; "White", "White", "White", "Other", "White", "White", "Whit…
+## $ health_gen &lt;chr&gt; "Good", "Good", "Good", NA, "Good", NA, NA, "Vgood", "Vgood…
+## $ height     &lt;dbl&gt; 164.7, 164.7, 164.7, 105.4, 168.4, 133.1, 130.6, 166.7, 166…
+## $ bmi        &lt;dbl&gt; 32.22, 32.22, 32.22, 15.30, 30.57, 16.82, 20.64, 27.24, 27.…
+## $ weight     &lt;dbl&gt; 87.4, 87.4, 87.4, 17.0, 86.7, 29.8, 35.2, 75.7, 75.7, 75.7,…
+## $ pulse      &lt;dbl&gt; 70, 70, 70, NA, 86, 82, 72, 62, 62, 62, 60, 62, 76, 80, 94,…
+## $ bp_sys_ave &lt;dbl&gt; 113, 113, 113, NA, 112, 86, 107, 118, 118, 118, 111, 104, 1…
 ```
 
 ---
@@ -254,7 +250,7 @@ background-image: url(img/ggplot2.png)
 background-position: 95% 20%
 background-size: 8%
 
-# Some quick tips for cleaning data 
+# Quick tips for cleaning data 
 
 ### Format factors 
 
@@ -284,8 +280,7 @@ levels(SmallNhanes$health_gen)
 ```
 
 ```
-## [1] "Poor"      "Fair"      "Good"      "Vgood"    
-## [5] "Excellent"
+## [1] "Poor"      "Fair"      "Good"      "Vgood"     "Excellent"
 ```
 
 ---
@@ -293,17 +288,432 @@ background-image: url(img/ggplot2.png)
 background-position: 95% 93%
 background-size: 8%
 
-# Some quick tips for cleaning data 
+# Your Turn
 
-### Cleaning text 
+&lt;br&gt;
+
+--
+
+## What relationship do you expect to see between `height` and `weight`?
+
+---
+background-image: url(img/ggplot2.png)
+background-position: 95% 93%
+background-size: 8%
+
+## 1. Use data and pipe to initialize a graph
+
+`SmallNhanes %&gt;%`   
+`ggplot()`
+
+--
+
+## 2. Map variables to aesthetics 
+
+`SmallNhanes %&gt;%`   
+`ggplot(mapping = aes(x = height, y = weight))`
+
+--
+
+## 3. Add geoms and layers 
+
+`SmallNhanes %&gt;% `  
+    `ggplot(mapping = aes(x = height, y = weight)) +`  
+    `geom_point()`
+
+---
+background-image: url(img/ggplot2.png)
+background-position: 95% 93%
+background-size: 6%
 
 
+```r
+SmallNhanes %&gt;% 
+* ggplot() # initialize
+```
 
+&lt;img src="img/initialize-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+background-image: url(img/ggplot2.png)
+background-position: 95% 93%
+background-size: 5%
+
+
+```r
+SmallNhanes %&gt;% 
+* ggplot(mapping = aes(x = height, y = weight)) # map variables
+```
+
+&lt;img src="img/mapping-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+background-image: url(img/ggplot2.png)
+background-position: 95% 93%
+background-size: 6%
+
+
+```r
+SmallNhanes %&gt;% 
+  ggplot(mapping = aes(x = height, y = weight)) + 
+* geom_point() # add geoms
+```
+
+&lt;img src="img/geoms-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+background-image: url(img/ggplot2.png)
+background-position: 95% 7%
+background-size: 8%
+
+# `ggplot2` template
+
+
+```r
+&lt;DATA&gt; %&gt;% 
+  ggplot(mapping = aes(&lt;MAPPINGS&gt;)) + 
+  &lt;GEOM_FUNCTION&gt;()
+```
+
+#### We can add more aesthetics *inside* geoms
+
+
+```r
+&lt;DATA&gt; %&gt;% 
+  ggplot(mapping = aes(&lt;MAPPINGS&gt;)) + 
+  &lt;GEOM_FUNCTION&gt;(mapping = aes(&lt;MAPPINGS&gt;))
+```
+
+#### And we can add *more* geoms
+
+
+```r
+&lt;DATA&gt; %&gt;% 
+  ggplot(mapping = aes(&lt;MAPPINGS&gt;)) + 
+  &lt;GEOM_FUNCTION&gt;(mapping = aes(&lt;MAPPINGS&gt;)) + 
+  &lt;GEOM_FUNCTION&gt;(mapping = aes(&lt;MAPPINGS&gt;))
+```
+
+---
+background-image: url(img/ggplot2.png)
+background-position: 95% 7%
+background-size: 8%
+
+# `ggplot2` template tips
+
+## Note the different syntax
+
+--
+
+### Initializing plots
+
+
+```r
+*&lt;DATA&gt; %&gt;% # initialize
+```
+
+--
+
+### Adding layers
+
+
+```r
+&lt;DATA&gt; %&gt;% 
+* ggplot(mapping = aes(&lt;MAPPINGS&gt;)) + # adding layers
+  &lt;GEOM_FUNCTION&gt;()
+```
+
+
+---
+background-image: url(img/ggplot2.png)
+background-position: 95% 7%
+background-size: 8%
+
+# Your Turn
+
+### Move the aesthetic mappings into `geom_point()`
+
+*From here...*
+
+
+```r
+SmallNhanes %&gt;% 
+* ggplot(mapping = aes(x = height, y = weight)) +
+  geom_point() 
+```
+
+*...to here.*
+
+```r
+SmallNhanes %&gt;% 
+  ggplot() + 
+* geom_point(mapping = aes(x = height, y = weight))
+```
+
+### What do you expect to see?
+
+---
+background-image: url(img/ggplot2.png)
+background-position: 95% 93%
+background-size: 4%
+
+
+```r
+SmallNhanes %&gt;% 
+  ggplot() + 
+  geom_point(mapping = aes(x = height, y = weight))
+```
+
+&lt;img src="img/aes-in-geom-render-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+background-image: url(img/ggplot2.png)
+background-position: 95% 7%
+background-size: 7%
+
+# `ggplot2` template
+
+### We can either pass the variables directly to the `ggplot()` function
+
+&lt;img src="img/ggplot2-template-01.png" width="100%" height="100%" style="display: block; margin: auto;" /&gt;
+
+---
+background-image: url(img/ggplot2.png)
+background-position: 95% 7%
+background-size: 7%
+
+# `ggplot2` template
+
+### Or we can pass the variables into the `geom()` function
+
+&lt;img src="img/ggplot2-template-02.png" width="100%" height="100%" style="display: block; margin: auto;" /&gt;
+
+---
+class: inverse, center
+background-image: url(img/ggplot2.png)
+background-position: 50% 60%
+background-size: 30%
+
+# Mappings
+
+
+---
+background-image: url(img/ggplot2.png)
+background-position: 95% 7%
+background-size: 7%
+
+# Mappings
+
+## Is the relationship between `weight` and `height` the same for both `gender`s?
+
+--
+
+### We can explore this by mapping the variable to different aesthetics
+
+--
+
+### Examples of aesthetics are `color`, `size`, `shape`, and `alpha`
+
+---
+background-image: url(img/ggplot2.png)
+background-position: 95% 93%
+background-size: 4%
+
+
+```r
+SmallNhanes %&gt;% ggplot() + 
+  geom_point(aes(x = weight, y = height, 
+*                            color = gender))
+```
+
+&lt;img src="img/color-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+background-image: url(img/ggplot2.png)
+background-position: 95% 93%
+background-size: 4%
+
+
+```r
+SmallNhanes %&gt;% ggplot() + 
+  geom_point(aes(x = weight, y = height, 
+*                            size = gender))
+```
+
+&lt;img src="img/size-point-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+background-image: url(img/ggplot2.png)
+background-position: 95% 93%
+background-size: 4%
+
+
+```r
+SmallNhanes %&gt;% ggplot() + 
+  geom_point(aes(x = weight, y = height, 
+*                             shape = gender))
+```
+
+&lt;img src="img/shape-point-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+background-image: url(img/ggplot2.png)
+background-position: 95% 93%
+background-size: 4%
+
+
+```r
+SmallNhanes %&gt;% ggplot() + 
+  geom_point(aes(x = weight, y = height, 
+*                           alpha = gender))
+```
+
+&lt;img src="img/alpha-point-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+background-image: url(img/ggplot2.png)
+background-position: 95% 93%
+background-size: 4%
+
+# Aesthetic mappings 
+
+&lt;br&gt;
+
+.pull-left[
+
+### Legend is automatically included 
+
+### Continuous variables best with `size`
+
+]
+
+.pull-right[
+
+&lt;img src="img/aes-settings.png" width="100%" height="100%" style="display: block; margin: auto;" /&gt;
+
+]
+
+---
+background-image: url(img/ggplot2.png)
+background-position: 95% 93%
+background-size: 4%
+
+# Setting vs. mapping variables
+
+How can we create this plot?
+
+&lt;br&gt;
+
+&lt;img src="img/red-points-1.png" width="80%" height="80%" style="display: block; margin: auto;" /&gt;
+
+
+---
+background-image: url(img/ggplot2.png)
+background-position: 95% 93%
+background-size: 4%
+
+&lt;br&gt;
+
+
+```r
+SmallNhanes %&gt;% ggplot() + 
+  geom_point(
+*   aes(x = weight, y = height, color = gender))# inside aes
+```
+
+--
+
+&lt;br&gt;&lt;br&gt;
+
+&lt;img src="img/color-1.png" width="80%" height="80%" style="display: block; margin: auto;" /&gt;
+
+---
+background-image: url(img/ggplot2.png)
+background-position: 95% 93%
+background-size: 4%
+
+&lt;br&gt;
+
+
+```r
+SmallNhanes %&gt;% ggplot() + 
+  geom_point(
+*   aes(x = weight, y = height), color = "red") # outside aes
+```
+
+--
+
+&lt;br&gt;&lt;br&gt;
+
+&lt;img src="img/red-points-1.png" width="80%" height="80%" style="display: block; margin: auto;" /&gt;
+
+
+---
+background-image: url(img/ggplot2.png)
+background-position: 95% 93%
+background-size: 4%
+
+# What if we make a mistake? 
+
+
+```r
+SmallNhanes %&gt;% ggplot() + 
+* geom_point(aes(x = weight, y = height, color = "blue")) # "" in aes
+```
+
+--
+
+&lt;img src="img/color-outside-aes-1.png" width="80%" height="80%" style="display: block; margin: auto;" /&gt;
+
+---
+background-image: url(img/ggplot2.png)
+background-position: 95% 93%
+background-size: 8%
+
+# Geoms 
+
+### These are visual geometric objects used to represent the data
+
+### Examples include `geom_box()`, `geom_col()`, `geom_line()`, and `geom_smooth()`
+
+### See the cheatsheet for more examples: 
+
+https://bit.ly/ggplot2-cheat
+
+---
+background-image: url(img/ggplot2.png)
+background-position: 95% 7%
+background-size: 8%
+
+# Your Turn
+
+&lt;br&gt;
+
+--
+
+## What relationship do you expect to see between BMI and average systolic blood pressure?
+
+---
+background-image: url(img/ggplot2.png)
+background-position: 95% 93%
+background-size: 8%
+
+
+```r
+SmallNhanes %&gt;% 
+  ggplot() + 
+  geom_point(aes(x = bmi, y = bp_sys_ave))
+```
+
+&lt;img src="img/unnamed-chunk-1-1.png" style="display: block; margin: auto;" /&gt;
 
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
-<script>var slideshow = remark.create();
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true
+});
 if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
   window.dispatchEvent(new Event('resize'));
 });
@@ -368,7 +778,24 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
       links[i].target = '_blank';
     }
   }
-})();</script>
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
 
 <script>
 slideshow._releaseMath = function(el) {

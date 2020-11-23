@@ -7,6 +7,9 @@ date: '`r Sys.Date()`'
 output:
   xaringan::moon_reader:
     css: xaringan-themer.css
+    nature:
+      highlightStyle: github
+      highlightLines: true
 ---
 
 ```{r setup, include=FALSE}
@@ -21,7 +24,8 @@ knitr::opts_chunk$set(warning = FALSE,
                       dpi = 320, 
                       tibble.max_extra_cols = 6, 
                       tibble.width = 60,
-                      fig.height = 4, 
+                      fig.height = 3, 
+                      fig.width = 5,
                       fig.path = "img/")
 options(max.print = "60")
 ```
@@ -182,7 +186,7 @@ background-size: 8%
 
 --
 
-### Variables are mapped to *aesthetics* 
+### Variables are *mapped* to *aesthetics* 
 
 --
 
@@ -197,16 +201,14 @@ background-image: url(img/ggplot2.png)
 background-position: 96% 8%
 background-size: 8%
 
-# Layered Grammar of Graphics
-
-### Load some data 
+# Load some data 
 
 The `NHANES` package comes with data from the [2014 American National Health and Nutrition Examination surveys](http://www.cdc.gov/nchs/data/series/sr_02/sr02_162.pdf). We will load a sample from it below: 
 
 ```{r NHANES, include=FALSE}
 library(NHANES)
 NHANES %>% 
-  select(ID, Gender, Age, Race1, HealthGen,
+  select(ID, Gender, Age, AgeDecade, Race1, HealthGen,
          Height, BMI, Weight, Pulse, BPSysAve) %>% 
   write_csv(x = ., file = "data/small-nhanes.csv")
 ```
@@ -221,7 +223,7 @@ background-image: url(img/ggplot2.png)
 background-position: 95% 93%
 background-size: 8%
 
-# Some quick tips for cleaning data 
+# Quick tips for cleaning data 
 
 ### Standardize names 
 
@@ -236,7 +238,7 @@ background-image: url(img/ggplot2.png)
 background-position: 95% 20%
 background-size: 8%
 
-# Some quick tips for cleaning data 
+# Quick tips for cleaning data 
 
 ### Format factors 
 
@@ -268,10 +270,400 @@ background-image: url(img/ggplot2.png)
 background-position: 95% 93%
 background-size: 8%
 
-# Some quick tips for cleaning data 
+# Your Turn
 
-### Cleaning text 
+<br>
+
+--
+
+## What relationship do you expect to see between `height` and `weight`?
+
+---
+background-image: url(img/ggplot2.png)
+background-position: 95% 93%
+background-size: 8%
+
+## 1. Use data and pipe to initialize a graph
+
+`SmallNhanes %>%`   
+`ggplot()`
+
+--
+
+## 2. Map variables to aesthetics 
+
+`SmallNhanes %>%`   
+`ggplot(mapping = aes(x = height, y = weight))`
+
+--
+
+## 3. Add geoms and layers 
+
+`SmallNhanes %>% `  
+    `ggplot(mapping = aes(x = height, y = weight)) +`  
+    `geom_point()`
+
+---
+background-image: url(img/ggplot2.png)
+background-position: 95% 93%
+background-size: 6%
+
+```{r initialize}
+SmallNhanes %>% 
+  ggplot() # initialize #<<
+```
+
+---
+background-image: url(img/ggplot2.png)
+background-position: 95% 93%
+background-size: 5%
+
+```{r mapping}
+SmallNhanes %>% 
+  ggplot(mapping = aes(x = height, y = weight)) # map variables #<<
+```
+
+---
+background-image: url(img/ggplot2.png)
+background-position: 95% 93%
+background-size: 6%
+
+```{r geoms}
+SmallNhanes %>% 
+  ggplot(mapping = aes(x = height, y = weight)) + 
+  geom_point() # add geoms #<<
+```
+
+---
+background-image: url(img/ggplot2.png)
+background-position: 95% 7%
+background-size: 8%
+
+# `ggplot2` template
+
+```{r temp-1, eval=FALSE}
+<DATA> %>% 
+  ggplot(mapping = aes(<MAPPINGS>)) + 
+  <GEOM_FUNCTION>()
+```
+
+#### We can add more aesthetics *inside* geoms
+
+```{r temp-2, eval=FALSE}
+<DATA> %>% 
+  ggplot(mapping = aes(<MAPPINGS>)) + 
+  <GEOM_FUNCTION>(mapping = aes(<MAPPINGS>))
+```
+
+#### And we can add *more* geoms
+
+```{r temp-3, eval=FALSE}
+<DATA> %>% 
+  ggplot(mapping = aes(<MAPPINGS>)) + 
+  <GEOM_FUNCTION>(mapping = aes(<MAPPINGS>)) + 
+  <GEOM_FUNCTION>(mapping = aes(<MAPPINGS>))
+```
+
+---
+background-image: url(img/ggplot2.png)
+background-position: 95% 7%
+background-size: 8%
+
+# `ggplot2` template tips
+
+## Note the different syntax
+
+--
+
+### Initializing plots
+
+```{r note-init, eval=FALSE}
+<DATA> %>% # initialize #<<
+```
+
+--
+
+### Adding layers
+
+```{r note-layer, eval=FALSE}
+<DATA> %>% 
+  ggplot(mapping = aes(<MAPPINGS>)) + # adding layers #<<
+  <GEOM_FUNCTION>()
+```
 
 
+---
+background-image: url(img/ggplot2.png)
+background-position: 95% 7%
+background-size: 8%
 
+# Your Turn
+
+### Move the aesthetic mappings into `geom_point()`
+
+*From here...*
+
+```{r aes-in-ggplot, eval=FALSE}
+SmallNhanes %>% 
+  ggplot(mapping = aes(x = height, y = weight)) + #<<
+  geom_point() 
+```
+
+*...to here.*
+```{r aes-in-geom, eval=FALSE}
+SmallNhanes %>% 
+  ggplot() + 
+  geom_point(mapping = aes(x = height, y = weight)) #<<
+```
+
+### What do you expect to see?
+
+---
+background-image: url(img/ggplot2.png)
+background-position: 95% 93%
+background-size: 4%
+
+```{r aes-in-geom-render}
+SmallNhanes %>% 
+  ggplot() + 
+  geom_point(mapping = aes(x = height, y = weight))
+```
+
+---
+background-image: url(img/ggplot2.png)
+background-position: 95% 7%
+background-size: 7%
+
+# `ggplot2` template
+
+### We can either pass the variables directly to the `ggplot()` function
+
+```{r ggplot2-template-01, echo=FALSE, out.width='100%', out.height='100%'}
+knitr::include_graphics(path = "img/ggplot2-template-01.png")
+```
+
+---
+background-image: url(img/ggplot2.png)
+background-position: 95% 7%
+background-size: 7%
+
+# `ggplot2` template
+
+### Or we can pass the variables into the `geom()` function
+
+```{r ggplot2-template-02, echo=FALSE, out.width='100%', out.height='100%'}
+knitr::include_graphics(path = "img/ggplot2-template-02.png")
+```
+
+---
+class: inverse, center
+background-image: url(img/ggplot2.png)
+background-position: 50% 60%
+background-size: 30%
+
+# Mappings
+
+
+---
+background-image: url(img/ggplot2.png)
+background-position: 95% 7%
+background-size: 7%
+
+# Mappings
+
+## Is the relationship between `weight` and `height` the same for both `gender`s?
+
+--
+
+### We can explore this by mapping the variable to different aesthetics
+
+--
+
+### Examples of aesthetics are `color`, `size`, `shape`, and `alpha`
+
+---
+background-image: url(img/ggplot2.png)
+background-position: 95% 93%
+background-size: 4%
+
+```{r color}
+SmallNhanes %>% ggplot() + 
+  geom_point(aes(x = weight, y = height, 
+                             color = gender)) #<<
+```
+
+---
+background-image: url(img/ggplot2.png)
+background-position: 95% 93%
+background-size: 4%
+
+```{r size-point}
+SmallNhanes %>% ggplot() + 
+  geom_point(aes(x = weight, y = height, 
+                             size = gender)) #<<
+```
+
+---
+background-image: url(img/ggplot2.png)
+background-position: 95% 93%
+background-size: 4%
+
+```{r shape-point}
+SmallNhanes %>% ggplot() + 
+  geom_point(aes(x = weight, y = height, 
+                              shape = gender)) #<<
+```
+
+---
+background-image: url(img/ggplot2.png)
+background-position: 95% 93%
+background-size: 4%
+
+```{r alpha-point}
+SmallNhanes %>% ggplot() + 
+  geom_point(aes(x = weight, y = height, 
+                            alpha = gender)) #<<
+```
+
+---
+background-image: url(img/ggplot2.png)
+background-position: 95% 93%
+background-size: 4%
+
+# Aesthetic mappings 
+
+<br>
+
+.pull-left[
+
+### Legend is automatically included 
+
+### Continuous variables best with `size`
+
+]
+
+.pull-right[
+
+```{r aes-settings, echo=FALSE, out.width='100%', out.height='100%'}
+knitr::include_graphics(path = "img/aes-settings.png")
+```
+
+]
+
+---
+background-image: url(img/ggplot2.png)
+background-position: 95% 93%
+background-size: 4%
+
+# Setting vs. mapping variables
+
+How can we create this plot?
+
+<br>
+
+```{r red-points-1, echo=FALSE, out.width='80%', out.height='80%'}
+knitr::include_graphics(path = "img/red-points-1.png")
+```
+
+
+---
+background-image: url(img/ggplot2.png)
+background-position: 95% 93%
+background-size: 4%
+
+<br>
+
+```{r inside-aes-no-eval, eval=FALSE}
+SmallNhanes %>% ggplot() + 
+  geom_point(
+    aes(x = weight, y = height, color = gender))# inside aes #<<
+```
+
+--
+
+<br><br>
+
+```{r color-1, echo=FALSE, out.width='80%', out.height='80%'}
+knitr::include_graphics(path = "img/color-1.png")
+```
+
+---
+background-image: url(img/ggplot2.png)
+background-position: 95% 93%
+background-size: 4%
+
+<br>
+
+```{r red-points, eval=FALSE}
+SmallNhanes %>% ggplot() + 
+  geom_point(
+    aes(x = weight, y = height), color = "red") # outside aes #<<
+```
+
+--
+
+<br><br>
+
+```{r red-points-1-2, echo=FALSE, out.width='80%', out.height='80%'}
+knitr::include_graphics(path = "img/red-points-1.png")
+```
+
+
+---
+background-image: url(img/ggplot2.png)
+background-position: 95% 93%
+background-size: 4%
+
+# What if we make a mistake? 
+
+```{r color-outside-aes, eval=FALSE}
+SmallNhanes %>% ggplot() + 
+  geom_point(aes(x = weight, y = height, color = "blue")) # "" in aes #<<
+```
+
+--
+
+```{r color-outside-aes-1, echo=FALSE, out.width='80%', out.height='80%'}
+knitr::include_graphics(path = "img/color-outside-aes-1.png")
+```
+
+---
+background-image: url(img/ggplot2.png)
+background-position: 95% 93%
+background-size: 8%
+
+# Geoms 
+
+### These are visual geometric objects used to represent the data
+
+### Examples include `geom_box()`, `geom_col()`, `geom_line()`, and `geom_smooth()`
+
+### See the cheatsheet for more examples: 
+
+https://bit.ly/ggplot2-cheat
+
+---
+background-image: url(img/ggplot2.png)
+background-position: 95% 7%
+background-size: 8%
+
+# Your Turn
+
+<br>
+
+--
+
+## How does age affect the relationship between weight and height?
+
+---
+background-image: url(img/ggplot2.png)
+background-position: 95% 93%
+background-size: 8%
+
+```{r}
+NHANES::NHANES %>% 
+  janitor::clean_names() %>% glimpse()
+  ggplot() + 
+  geom_point(aes(x = tot_chol, y = bp_sys_ave))
+```
 
