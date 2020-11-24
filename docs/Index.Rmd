@@ -197,9 +197,9 @@ background-size: 8%
 ---
 background-image: url(img/ggplot2.png)
 background-position: 96% 8%
-background-size: 8%
+background-size: 6%
 
-# Let's load some data! 
+### Let's load some data! 
 
 The `NHANES` package comes with data from the [2014 American National Health and Nutrition Examination surveys](http://www.cdc.gov/nchs/data/series/sr_02/sr02_162.pdf). We will load a sample from it below: 
 
@@ -211,24 +211,36 @@ NHANES %>%
   write_csv(x = ., file = "data/small-nhanes.csv")
 ```
 
-```{r SmallNhanes}
+```{r import-SmallNhanes, eval=FALSE}
 SmallNhanes <- read_csv("https://bit.ly/nhanes-small")
-SmallNhanes %>% glimpse(60)
+SmallNhanes
+```
+
+```{r paged-SmallNhanes, echo=FALSE}
+SmallNhanes <- read_csv("https://bit.ly/nhanes-small")
+rmarkdown::paged_table(
+SmallNhanes)
 ```
 
 ---
 background-image: url(img/ggplot2.png)
-background-position: 95% 93%
-background-size: 8%
+background-position: 95% 8%
+background-size: 6%
 
-# Quick tips for cleaning data 
+### Quick tips for cleaning data 
 
-### Standardize names 
+**Standardize names**
 
-```{r clean_names}
+```{r show-clean_names, eval=FALSE}
+SmallNhanes <- SmallNhanes %>% janitor::clean_names()
+SmallNhanes
+```
+
+```{r paged-clean_names, echo=FALSE}
 SmallNhanes <- SmallNhanes %>% 
   janitor::clean_names()
-SmallNhanes %>% glimpse(60)
+rmarkdown::paged_table(
+SmallNhanes)
 ```
 
 ---
@@ -236,11 +248,9 @@ background-image: url(img/ggplot2.png)
 background-position: 95% 20%
 background-size: 8%
 
-# Quick tips for cleaning data 
+### Quick tips for cleaning data
 
-### Format factors 
-
-We have a `health_gen` variable with the following levels: 
+**Format factors:** We have a `health_gen` variable with the following levels: 
 
 `Excellent`, `Vgood`, `Good`, `Fair`, or `Poor`. These are ordered. 
 
@@ -811,7 +821,7 @@ background-size: 7%
 SmallNhanes %>% 
   ggplot(aes(x = weight, y = height)) + 
   geom_point(aes(color = gender)) + 
-  geom_smooth(data = 
+  geom_smooth(data = # data 2 #<<
                 filter(SmallNhanes, gender == "male"), # layer 2 #<<
               aes(x = weight, y = height), 
               color = "blue") 
@@ -826,7 +836,7 @@ knitr::include_graphics(path = "img/layer-2-plot-1.png")
 
 ---
 background-image: url(img/ggplot2.png)
-background-position: 95% 95%
+background-position: 95% 93%
 background-size: 7%
 
 ```{r layer-3-plot, eval=FALSE}
@@ -837,7 +847,7 @@ SmallNhanes %>%
                 filter(SmallNhanes, gender == "male"), 
               aes(x = weight, y = height), 
               color = "blue") + 
-    geom_smooth(data = 
+    geom_smooth(data = # data 3 #<<
                   filter(SmallNhanes, gender == "female"), # layer 3 #<<
               aes(x = weight, y = height), 
               color = "red") 
@@ -845,7 +855,7 @@ SmallNhanes %>%
 
 --
 
-```{r layer-3-plot-1, echo=FALSE, out.width='75%', out.height='75%'}
+```{r layer-3-plot-1, echo=FALSE, out.width='72%', out.height='72%'}
 knitr::include_graphics(path = "img/layer-3-plot-1.png")
 ```
 
