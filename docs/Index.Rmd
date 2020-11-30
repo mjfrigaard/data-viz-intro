@@ -84,7 +84,7 @@ https://mjfrigaard.github.io/r-meetup-tutorials/gg00_intro-to-data-viz.html
 
 ## Link to RStudio Project 
 
-
+https://rstudio.cloud/project/1973650
 
 ---
 class: left, top
@@ -1169,3 +1169,9 @@ background-size: 12%
 ## [`ggplot2`](https://ggplot2.tidyverse.org/) on the tidyverse website 
 
 ## [Flowing Data](https://flowingdata.com/) 
+
+```{r chrome_print, eval=FALSE, include=FALSE, echo=FALSE}
+fs::dir_create("pdfs")
+pagedown::chrome_print(input = "Index.html", 
+                       output = "pdfs/data-viz-intro-slides.pdf")
+```
