@@ -1,6 +1,6 @@
 ---
 title: "Introduction to Data Visualization with ggplot2"
-subtitle: "bmRn CSM: Introduction to the grammar of graphics"
+subtitle: "bmRn CSM: An introduction to the grammar of graphics"
 author: 
   - "Martin Frigaard"
 date: '`r Sys.Date()`'
